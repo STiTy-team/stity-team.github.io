@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "id": "A-0001",
+      "file": "../../../../../../../../tmp/claude-1000/-home-hyoungjoojin-Desktop-workspaces-skkai/a8584235-a96c-4cb3-b9f9-235aaa3d6201/scratchpad/logo.png",
+      "kind": "image",
+      "source": "derived",
+      "model": "",
+      "prompt": "",
+      "params": {},
+      "cost_usd": 0.0,
+      "tags": [
+        "cutout"
+      ],
+      "plan_id": "",
+      "job_id": "",
+      "derived_from": [],
+      "op": "key bg=#fefdfd tol=18",
+      "rating": "unrated",
+      "notes": "",
+      "created": "2026-10-02T11:26:01",
+      "sha256": "520e08e688ed240252b658a7aab79994453ecb7383a50a52a5bbd40f48ce09e9"
+    }
+  ]
+}

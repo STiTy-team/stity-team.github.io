@@ -1,0 +1,11 @@
+{
+  "name": "TDS direction system",
+  "seed": "cecdcbf45b5daf6e",
+  "rolled_option": "B. Transit wayfinding",
+  "fusion": "Replaced the landing-only comic/ink/halftone layer with the real STiTy mobile app's own Toss-style design system (STiTy/DESIGN.md): flat white/paper surfaces, 1px grey-200 borders, soft navy-tinted elevation shadows instead of ink outlines, blue-600 as the single accent, olive-500 reserved for small live/KO marks only (never a section fill). Chat bubbles in the Strip panels now reuse the app's real bubble-mine/bubble-peer spec (grey peer, blue mine, 4px tail corner) instead of drawn speech balloons.",
+  "world": "The real STiTy app's own Toss-derived system, not an invented landing aesthetic",
+  "palette_strategy": "Restrained - neutrals carry the surface; blue-600 is the one committed accent; olive-500 only as small live/KO marks, per the app's own rule",
+  "ground": "Flat white/paper, depth from soft navy-tinted contact shadows only (no texture, no borders-as-decoration)",
+  "type_voice": "Pretendard (unchanged - fixed by the parent brand)",
+  "rejected": "Ink outlines, comic-line 2.5px borders, Ben-Day dot halftone, caption-yellow speech balloons, sound-effect lettering, drawn comic panels"
+}
