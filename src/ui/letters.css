@@ -7,38 +7,74 @@
 
 .letter-eyes,
 .letter-mouth,
-.letter-arm { transform-box: view-box; }
+.letter-arm {
+  transform-box: view-box;
+}
 
-.letter-eyes { animation: letter-blink 4.6s infinite; animation-delay: var(--blink-delay, 0s); }
+.letter-eyes {
+  animation: letter-blink 4.6s infinite;
+  animation-delay: var(--blink-delay, 0s);
+}
 
 @keyframes letter-blink {
-  0%, 92%, 100% { transform: scaleY(1); }
-  95% { transform: scaleY(0.1); }
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
 }
 
-.letter-arm.is-waving { animation: letter-wave 2.8s ease-in-out infinite; animation-delay: var(--wave-delay, 0s); }
+.letter-arm.is-waving {
+  animation: letter-wave 2.8s ease-in-out infinite;
+  animation-delay: var(--wave-delay, 0s);
+}
 
 @keyframes letter-wave {
-  0%, 55%, 100% { transform: rotate(0deg); }
-  65% { transform: rotate(-14deg); }
-  75% { transform: rotate(10deg); }
-  85% { transform: rotate(-10deg); }
+  0%,
+  55%,
+  100% {
+    transform: rotate(0deg);
+  }
+  65% {
+    transform: rotate(-14deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  85% {
+    transform: rotate(-10deg);
+  }
 }
 
-.letter-mouth { transition: transform 120ms ease-out; }
-.is-talking .letter-mouth { animation: letter-talk 0.26s ease-in-out infinite alternate; }
+.letter-mouth {
+  transition: transform 120ms ease-out;
+}
+.is-talking .letter-mouth {
+  animation: letter-talk 0.26s ease-in-out infinite alternate;
+}
 
 @keyframes letter-talk {
-  from { transform: scale(1, 0.45); }
-  to { transform: scale(1.05, 1.25); }
+  from {
+    transform: scale(1, 0.45);
+  }
+  to {
+    transform: scale(1.05, 1.25);
+  }
 }
 
 .is-still .letter-eyes,
 .is-still .letter-arm,
-.is-still .letter-mouth { animation: none; }
+.is-still .letter-mouth {
+  animation: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .letter-eyes,
   .letter-arm.is-waving,
-  .is-talking .letter-mouth { animation: none; }
+  .is-talking .letter-mouth {
+    animation: none;
+  }
 }

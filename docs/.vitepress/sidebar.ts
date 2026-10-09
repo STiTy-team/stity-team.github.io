@@ -35,14 +35,22 @@ function byOrder(a: Meta, b: Meta) {
   return a.order - b.order || a.title.localeCompare(b.title, "ko");
 }
 
-function readSection(root: string, dir: string): (DefaultTheme.SidebarItem & Meta)[] {
-  const entries = readdirSync(dir).filter((name) => !IGNORED.has(name) && !name.startsWith("."));
+function readSection(
+  root: string,
+  dir: string,
+): (DefaultTheme.SidebarItem & Meta)[] {
+  const entries = readdirSync(dir).filter(
+    (name) => !IGNORED.has(name) && !name.startsWith("."),
+  );
 
   const pages = entries
     .filter((name) => isPage(name) && name !== "index.md")
     .map((name) => {
       const file = join(dir, name);
-      return { ...readMeta(file, name.replace(/\.md$/, "")), link: toLink(root, file) };
+      return {
+        ...readMeta(file, name.replace(/\.md$/, "")),
+        link: toLink(root, file),
+      };
     });
 
   const sections = entries
@@ -53,18 +61,34 @@ function readSection(root: string, dir: string): (DefaultTheme.SidebarItem & Met
       const hasIndex = readdirSync(sub).includes("index.md");
       const items = readSection(root, sub);
       if (!hasIndex && items.length === 0) return [];
-      const meta = hasIndex ? readMeta(index, name) : { title: name, order: Number.MAX_SAFE_INTEGER };
-      return [{ ...meta, link: hasIndex ? toLink(root, index) : undefined, items, collapsed: false }];
+      const meta = hasIndex
+        ? readMeta(index, name)
+        : { title: name, order: Number.MAX_SAFE_INTEGER };
+      return [
+        {
+          ...meta,
+          link: hasIndex ? toLink(root, index) : undefined,
+          items,
+          collapsed: false,
+        },
+      ];
     });
 
   return [...pages, ...sections].sort(byOrder);
 }
 
 export function buildSidebar(root: string): DefaultTheme.SidebarItem[] {
-  const strip = ({ title, items, order: _order, ...rest }: DefaultTheme.SidebarItem & Meta): DefaultTheme.SidebarItem => ({
+  const strip = ({
+    title,
+    items,
+    order: _order,
+    ...rest
+  }: DefaultTheme.SidebarItem & Meta): DefaultTheme.SidebarItem => ({
     ...rest,
     text: title,
-    ...(items?.length ? { items: (items as (DefaultTheme.SidebarItem & Meta)[]).map(strip) } : {}),
+    ...(items?.length
+      ? { items: (items as (DefaultTheme.SidebarItem & Meta)[]).map(strip) }
+      : {}),
   });
   return readSection(root, root).map(strip);
 }

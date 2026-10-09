@@ -34,7 +34,13 @@ export default defineConfig({
   themeConfig: {
     logo: { src: "/assets/logo.webp", alt: "STiTy" },
     siteTitle: "개발 문서",
-    nav: [{ text: "소개 페이지", link: "https://stity-team.github.io/", target: "_self" }],
+    nav: [
+      {
+        text: "소개 페이지",
+        link: "https://stity-team.github.io/",
+        target: "_self",
+      },
+    ],
     socialLinks: [{ icon: "github", link: REPO, ariaLabel: "GitHub 저장소" }],
     sidebar: buildSidebar(srcDir),
     outline: { level: [2, 3], label: "이 페이지에서" },

@@ -79,7 +79,9 @@ export function Strip() {
                 {w.rewrite.map(([ko, en], i) => (
                   <p key={ko} className={i === 0 ? "rewrite-old" : undefined}>
                     <span className="mini-balloon">{ko}</span>
-                    <span className="rewrite-arrow" aria-hidden="true">→</span>
+                    <span className="rewrite-arrow" aria-hidden="true">
+                      →
+                    </span>
                     <span className="rewrite-out" lang="en">
                       {en}
                     </span>

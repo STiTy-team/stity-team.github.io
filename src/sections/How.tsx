@@ -1,6 +1,14 @@
 import { copy } from "../content";
 
-function Sentence({ mark, note, tone }: { mark: string; note: string; tone: "blue" | "green" }) {
+function Sentence({
+  mark,
+  note,
+  tone,
+}: {
+  mark: string;
+  note: string;
+  tone: "blue" | "green";
+}) {
   const [before, after] = copy.how.sentence;
   return (
     <div className="seg-row">
@@ -25,7 +33,16 @@ export function How() {
 
         <ol className="pipeline">
           {h.pipeline.map(([name, sub]) => (
-            <li key={name} className={name === "<SEG>" ? "pipe-seg" : name === "Streaming ASR" ? "pipe-asr" : undefined}>
+            <li
+              key={name}
+              className={
+                name === "<SEG>"
+                  ? "pipe-seg"
+                  : name === "Streaming ASR"
+                    ? "pipe-asr"
+                    : undefined
+              }
+            >
               <strong>{name}</strong>
               <span>{sub}</span>
             </li>
@@ -44,7 +61,11 @@ export function How() {
             <span className="seg-tag">{h.finetuned.tag}</span>
             <h3>{h.finetuned.title}</h3>
             <p className="seg-sub">{h.finetuned.sub}</p>
-            <Sentence mark={h.finetuned.mark} note={h.finetuned.note} tone="green" />
+            <Sentence
+              mark={h.finetuned.mark}
+              note={h.finetuned.note}
+              tone="green"
+            />
           </div>
         </div>
 

@@ -6,7 +6,12 @@ export const LINKS: Record<"demo" | "github" | "contact", string | null> = {
 
 export const copy = {
   skip: "본문으로 건너뛰기",
-  nav: { why: "연구 배경", how: "작동 방식", events: "현장", docs: "개발 문서" },
+  nav: {
+    why: "연구 배경",
+    how: "작동 방식",
+    events: "현장",
+    docs: "개발 문서",
+  },
   cta: {
     demo: "라이브 데모 열기",
     code: "GitHub에서 코드 보기",
@@ -52,8 +57,14 @@ export const copy = {
     },
   ],
   modes: [
-    { name: "스피커", body: "기기 하나로 같이 듣는 방식이에요. 번역이 스피커로 나와요." },
-    { name: "이어폰", body: "한 사람이 이어폰을 끼고 상대 말의 번역을 들어요." },
+    {
+      name: "스피커",
+      body: "기기 하나로 같이 듣는 방식이에요. 번역이 스피커로 나와요.",
+    },
+    {
+      name: "이어폰",
+      body: "한 사람이 이어폰을 끼고 상대 말의 번역을 들어요.",
+    },
     { name: "둘 다", body: "두 사람 모두 이어폰을 끼고 서로의 번역을 들어요." },
   ],
   langsLabel: "앱에서 고를 수 있는 언어",
@@ -71,7 +82,13 @@ export const copy = {
     rows: [
       { name: "사람 사이 대화", value: 0.2, text: "약 0.2초", tone: "human" },
       { name: "STiTy 목표", value: 0.5, text: "0.5초 미만", tone: "stity" },
-      { name: "상용 회의용 STT", from: 3, value: 5, text: "3~5초", tone: "other" },
+      {
+        name: "상용 회의용 STT",
+        from: 3,
+        value: 5,
+        text: "3~5초",
+        tone: "other",
+      },
     ],
     source: "대화 간격: Stivers 외, PNAS 2009. 상용 STT 지연: 팀 조사.",
   },
@@ -81,7 +98,8 @@ export const copy = {
     peer: "상대",
     peerLang: "영어로 말해요",
   },
-  stagePhoto: "IBM Qiskit Fall Fest 2025 with SKKU, 무대 옆 모니터에 뜬 영어 자막",
+  stagePhoto:
+    "IBM Qiskit Fall Fest 2025 with SKKU, 무대 옆 모니터에 뜬 영어 자막",
   phone: {
     setupTitle: "누구와 대화하나요?",
     mine: "내 언어",
@@ -120,9 +138,18 @@ export const copy = {
     label: "GOALS",
     title: "두 가지 요구사항을 지키며, 세 가지 목표로.",
     items: [
-      ["스트리밍 네이티브", "처음부터 스트리밍으로 동작하는 음성 인식 모델 위에서, 입력부터 출력까지 전 구간을 실시간으로 처리해요."],
-      ["분절 자립성", "의미 경계 판정을 모델이 직접 하도록 학습해요. 외부 규칙 없이도 지연과 고정성을 지켜요."],
-      ["지연과 번역 품질을 함께", "지연을 낮추면서 인식과 번역 품질도 함께 끌어올리고, 여러 언어에서 검증해요."],
+      [
+        "스트리밍 네이티브",
+        "처음부터 스트리밍으로 동작하는 음성 인식 모델 위에서, 입력부터 출력까지 전 구간을 실시간으로 처리해요.",
+      ],
+      [
+        "분절 자립성",
+        "의미 경계 판정을 모델이 직접 하도록 학습해요. 외부 규칙 없이도 지연과 고정성을 지켜요.",
+      ],
+      [
+        "지연과 번역 품질을 함께",
+        "지연을 낮추면서 인식과 번역 품질도 함께 끌어올리고, 여러 언어에서 검증해요.",
+      ],
     ],
   },
   how: {
@@ -201,11 +228,13 @@ export const EVENT_META = [
 export const CONVERSATION = {
   peer1: {
     text: "Hi! I heard STiTy can translate our conversation in real time. Is that right?",
-    trans: "안녕하세요! STiTy가 우리 대화를 실시간으로 번역해 준다고 들었어요. 맞나요?",
+    trans:
+      "안녕하세요! STiTy가 우리 대화를 실시간으로 번역해 준다고 들었어요. 맞나요?",
   },
   mine: {
     text: "네, 맞아요. 제가 한국어로 말하면 바로 영어로 들려드려요.",
-    trans: "Yes, that's right. When I speak in Korean, you hear it in English right away.",
+    trans:
+      "Yes, that's right. When I speak in Korean, you hear it in English right away.",
   },
   peer2: {
     text: "That's amazing. So we can talk naturally without an interpreter?",

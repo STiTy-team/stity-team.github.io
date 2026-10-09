@@ -13,9 +13,14 @@ export type Frame = {
 };
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
-const progress = (b: number, from: number, to: number) => clamp01((b - from) / (to - from));
+const progress = (b: number, from: number, to: number) =>
+  clamp01((b - from) / (to - from));
 
-export function frameAt(b: number, myWordCount: number, peerWordCount: number): Frame {
+export function frameAt(
+  b: number,
+  myWordCount: number,
+  peerWordCount: number,
+): Frame {
   const screen: Screen = b < 1.5 ? "setup" : b < 4.55 ? "chat" : "stage";
   const myWords = Math.ceil(progress(b, 1.55, 2.35) * myWordCount);
   const peerWords = Math.ceil(progress(b, 3.45, 3.95) * peerWordCount);
@@ -30,7 +35,10 @@ export function frameAt(b: number, myWordCount: number, peerWordCount: number): 
   };
 }
 
-export type Pose = { pos: [number, number, number]; rot: [number, number, number] };
+export type Pose = {
+  pos: [number, number, number];
+  rot: [number, number, number];
+};
 
 export const POSES: Pose[] = [
   { pos: [0.1, -0.05, 0], rot: [0.1, -0.5, 0.07] },
@@ -50,7 +58,15 @@ export function poseAt(b: number): Pose {
   const c = POSES[i + 1];
   const mix = (x: number, y: number) => x + (y - x) * t;
   return {
-    pos: [mix(a.pos[0], c.pos[0]), mix(a.pos[1], c.pos[1]), mix(a.pos[2], c.pos[2])],
-    rot: [mix(a.rot[0], c.rot[0]), mix(a.rot[1], c.rot[1]), mix(a.rot[2], c.rot[2])],
+    pos: [
+      mix(a.pos[0], c.pos[0]),
+      mix(a.pos[1], c.pos[1]),
+      mix(a.pos[2], c.pos[2]),
+    ],
+    rot: [
+      mix(a.rot[0], c.rot[0]),
+      mix(a.rot[1], c.rot[1]),
+      mix(a.rot[2], c.rot[2]),
+    ],
   };
 }

@@ -17,7 +17,13 @@ function stateAt(b: number, talk: [number, number]): MascotState {
   return within(b, talk) ? "talk" : "idle";
 }
 
-export function StageCast({ beat, active }: { beat: MotionValue<number>; active: boolean }) {
+export function StageCast({
+  beat,
+  active,
+}: {
+  beat: MotionValue<number>;
+  active: boolean;
+}) {
   const prev = useRef(beat.get());
   const [cast, setCast] = useState<Cast>(() => ({
     s: stateAt(beat.get(), MY_TALK),
@@ -32,8 +38,17 @@ export function StageCast({ beat, active }: { beat: MotionValue<number>; active:
     const sHop = crossed(PEER_TRANSLATED) ? 1 : 0;
     prev.current = b;
     setCast((c) => {
-      const next = { s: stateAt(b, MY_TALK), y: stateAt(b, PEER_TALK), sHop: c.sHop + sHop, yHop: c.yHop + yHop };
-      const same = next.s === c.s && next.y === c.y && next.sHop === c.sHop && next.yHop === c.yHop;
+      const next = {
+        s: stateAt(b, MY_TALK),
+        y: stateAt(b, PEER_TALK),
+        sHop: c.sHop + sHop,
+        yHop: c.yHop + yHop,
+      };
+      const same =
+        next.s === c.s &&
+        next.y === c.y &&
+        next.sHop === c.sHop &&
+        next.yHop === c.yHop;
       return same ? c : next;
     });
   });
@@ -47,10 +62,21 @@ export function StageCast({ beat, active }: { beat: MotionValue<number>; active:
   return (
     <>
       <motion.div className="stage-mascot stage-mascot-s" {...entrance(0.25)}>
-        <Mascot name="s" state={active ? cast.s : "still"} hop={cast.sHop} lean={1} />
+        <Mascot
+          name="s"
+          state={active ? cast.s : "still"}
+          hop={cast.sHop}
+          lean={1}
+        />
       </motion.div>
       <motion.div className="stage-mascot stage-mascot-y" {...entrance(0.4)}>
-        <Mascot name="y" state={active ? cast.y : "still"} hop={cast.yHop} lean={-1} phase={1.1} />
+        <Mascot
+          name="y"
+          state={active ? cast.y : "still"}
+          hop={cast.yHop}
+          lean={-1}
+          phase={1.1}
+        />
       </motion.div>
     </>
   );
