@@ -9,7 +9,10 @@ import SectionIndex from "./SectionIndex.vue";
 
 export default {
   extends: DefaultTheme,
-  Layout: () => h(DefaultTheme.Layout, null, { "doc-footer-before": () => h(SectionIndex) }),
+  Layout: () =>
+    h(DefaultTheme.Layout, null, {
+      "doc-footer-before": () => h(SectionIndex),
+    }),
   enhanceApp({ app }) {
     app.component("SectionIndex", SectionIndex);
   },

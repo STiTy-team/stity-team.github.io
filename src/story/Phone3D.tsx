@@ -1,8 +1,17 @@
 import { useEffect, useMemo, useRef, type RefObject } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Lightformer, RoundedBox } from "@react-three/drei";
-import { ExtrudeGeometry, MathUtils, Shape, ShapeGeometry, type Group } from "three";
-import { CSS3DObject, CSS3DRenderer } from "three/examples/jsm/renderers/CSS3DRenderer.js";
+import {
+  ExtrudeGeometry,
+  MathUtils,
+  Shape,
+  ShapeGeometry,
+  type Group,
+} from "three";
+import {
+  CSS3DObject,
+  CSS3DRenderer,
+} from "three/examples/jsm/renderers/CSS3DRenderer.js";
 import type { MotionValue } from "motion/react";
 import { poseAt, type Pose } from "./frames";
 import type { Rect, Slots } from "./slots";
@@ -51,16 +60,22 @@ function roundedRect(w: number, h: number, r: number) {
 
 function usePhoneGeometry() {
   return useMemo(() => {
-    const body = new ExtrudeGeometry(roundedRect(W - EDGE * 2, H - EDGE * 2, RADIUS - EDGE), {
-      depth: D - EDGE * 2,
-      bevelEnabled: true,
-      bevelThickness: EDGE,
-      bevelSize: EDGE,
-      bevelSegments: 6,
-      curveSegments: 24,
-    });
+    const body = new ExtrudeGeometry(
+      roundedRect(W - EDGE * 2, H - EDGE * 2, RADIUS - EDGE),
+      {
+        depth: D - EDGE * 2,
+        bevelEnabled: true,
+        bevelThickness: EDGE,
+        bevelSize: EDGE,
+        bevelSegments: 6,
+        curveSegments: 24,
+      },
+    );
     body.translate(0, 0, -(D - EDGE * 2) / 2);
-    const glass = new ShapeGeometry(roundedRect(W - 0.03, H - 0.03, RADIUS - 0.015), 24);
+    const glass = new ShapeGeometry(
+      roundedRect(W - 0.03, H - 0.03, RADIUS - 0.015),
+      24,
+    );
     return { body, glass };
   }, []);
 }
@@ -132,39 +147,107 @@ function Rig({ beat, hero, slots, reduced, screen }: Omit<Props, "active">) {
     const scale = mix(from.scale, to.scale, t);
 
     const k = 7;
-    g.position.x = MathUtils.damp(g.position.x, mix(from.x, to.x, t) + local.pos[0] * scale * t, k, dt);
-    g.position.y = MathUtils.damp(g.position.y, mix(from.y, to.y, t) + local.pos[1] * scale * t, k, dt);
+    g.position.x = MathUtils.damp(
+      g.position.x,
+      mix(from.x, to.x, t) + local.pos[0] * scale * t,
+      k,
+      dt,
+    );
+    g.position.y = MathUtils.damp(
+      g.position.y,
+      mix(from.y, to.y, t) + local.pos[1] * scale * t,
+      k,
+      dt,
+    );
     g.position.z = MathUtils.damp(g.position.z, local.pos[2] * t, k, dt);
     g.scale.setScalar(MathUtils.damp(g.scale.x, scale, k, dt));
-    g.rotation.x = MathUtils.damp(g.rotation.x, mix(start.rot[0], local.rot[0], t), k, dt);
-    g.rotation.y = MathUtils.damp(g.rotation.y, mix(start.rot[1], local.rot[1], t), k, dt);
-    g.rotation.z = MathUtils.damp(g.rotation.z, mix(start.rot[2], local.rot[2], t), k, dt);
+    g.rotation.x = MathUtils.damp(
+      g.rotation.x,
+      mix(start.rot[0], local.rot[0], t),
+      k,
+      dt,
+    );
+    g.rotation.y = MathUtils.damp(
+      g.rotation.y,
+      mix(start.rot[1], local.rot[1], t),
+      k,
+      dt,
+    );
+    g.rotation.z = MathUtils.damp(
+      g.rotation.z,
+      mix(start.rot[2], local.rot[2], t),
+      k,
+      dt,
+    );
   });
 
   return (
     <group ref={group}>
       <mesh geometry={geo.body}>
-        <meshPhysicalMaterial color={FRAME_COLOR} metalness={0.75} roughness={0.32} clearcoat={0.6} clearcoatRoughness={0.25} />
+        <meshPhysicalMaterial
+          color={FRAME_COLOR}
+          metalness={0.75}
+          roughness={0.32}
+          clearcoat={0.6}
+          clearcoatRoughness={0.25}
+        />
       </mesh>
       <mesh geometry={geo.glass} position={[0, 0, D / 2 + 0.002]}>
-        <meshPhysicalMaterial color="#05070a" roughness={0.12} metalness={0.1} clearcoat={1} />
+        <meshPhysicalMaterial
+          color="#05070a"
+          roughness={0.12}
+          metalness={0.1}
+          clearcoat={1}
+        />
       </mesh>
-      <RoundedBox args={[0.5, 0.5, 0.05]} radius={0.12} position={[-W / 2 + 0.38, H / 2 - 0.38, -D / 2 - 0.02]}>
-        <meshPhysicalMaterial color={FRAME_COLOR} metalness={0.6} roughness={0.4} />
+      <RoundedBox
+        args={[0.5, 0.5, 0.05]}
+        radius={0.12}
+        position={[-W / 2 + 0.38, H / 2 - 0.38, -D / 2 - 0.02]}
+      >
+        <meshPhysicalMaterial
+          color={FRAME_COLOR}
+          metalness={0.6}
+          roughness={0.4}
+        />
       </RoundedBox>
       {[0.55, 0.15].map((y) => (
-        <RoundedBox key={y} args={[0.03, 0.28, 0.06]} radius={0.012} position={[-W / 2 - 0.008, y + 0.4, 0]}>
-          <meshStandardMaterial color={FRAME_COLOR} metalness={0.8} roughness={0.3} />
+        <RoundedBox
+          key={y}
+          args={[0.03, 0.28, 0.06]}
+          radius={0.012}
+          position={[-W / 2 - 0.008, y + 0.4, 0]}
+        >
+          <meshStandardMaterial
+            color={FRAME_COLOR}
+            metalness={0.8}
+            roughness={0.3}
+          />
         </RoundedBox>
       ))}
-      <RoundedBox args={[0.03, 0.45, 0.06]} radius={0.012} position={[W / 2 + 0.008, 0.75, 0]}>
-        <meshStandardMaterial color={FRAME_COLOR} metalness={0.8} roughness={0.3} />
+      <RoundedBox
+        args={[0.03, 0.45, 0.06]}
+        radius={0.012}
+        position={[W / 2 + 0.008, 0.75, 0]}
+      >
+        <meshStandardMaterial
+          color={FRAME_COLOR}
+          metalness={0.8}
+          roughness={0.3}
+        />
       </RoundedBox>
     </group>
   );
 }
 
-export default function Phone3D({ beat, hero, slots, reduced, active, screen }: Props) {
+export default function Phone3D({
+  beat,
+  hero,
+  slots,
+  reduced,
+  active,
+  screen,
+}: Props) {
   return (
     <Canvas
       className="phone-canvas"
@@ -176,11 +259,32 @@ export default function Phone3D({ beat, hero, slots, reduced, active, screen }: 
       <ambientLight intensity={0.35} />
       <directionalLight position={[-3, 5, 6]} intensity={1.4} />
       <Environment resolution={256}>
-        <Lightformer form="rect" intensity={3} position={[-4, 3, 4]} scale={[4, 8, 1]} />
-        <Lightformer form="rect" intensity={1.5} position={[5, -1, 3]} scale={[3, 6, 1]} />
-        <Lightformer form="rect" intensity={1} position={[0, 6, -4]} scale={[10, 2, 1]} />
+        <Lightformer
+          form="rect"
+          intensity={3}
+          position={[-4, 3, 4]}
+          scale={[4, 8, 1]}
+        />
+        <Lightformer
+          form="rect"
+          intensity={1.5}
+          position={[5, -1, 3]}
+          scale={[3, 6, 1]}
+        />
+        <Lightformer
+          form="rect"
+          intensity={1}
+          position={[0, 6, -4]}
+          scale={[10, 2, 1]}
+        />
       </Environment>
-      <Rig beat={beat} hero={hero} slots={slots} reduced={reduced} screen={screen} />
+      <Rig
+        beat={beat}
+        hero={hero}
+        slots={slots}
+        reduced={reduced}
+        screen={screen}
+      />
       <CssLayer />
     </Canvas>
   );

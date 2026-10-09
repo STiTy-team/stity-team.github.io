@@ -13,7 +13,10 @@ const PALETTE: Record<LetterName, Palette> = {
   y: { base: "#F7D04A", shade: "#D9AA20", limb: "#EDC03A" },
 };
 
-type Shape = { kind: "stroke"; d: string; width: number } | { kind: "rect"; x: number; y: number; w: number; h: number } | { kind: "circle"; cx: number; cy: number; r: number };
+type Shape =
+  | { kind: "stroke"; d: string; width: number }
+  | { kind: "rect"; x: number; y: number; w: number; h: number }
+  | { kind: "circle"; cx: number; cy: number; r: number };
 
 type Arm = { d: string; hand: [number, number]; wave?: boolean };
 
@@ -30,7 +33,13 @@ type Rig = {
 
 const RIGS: Record<LetterName, Rig> = {
   s: {
-    body: [{ kind: "stroke", d: "M90 44 C 84 22, 34 20, 33 48 C 32 74, 88 66, 88 100 C 88 134, 38 138, 28 110", width: 31 }],
+    body: [
+      {
+        kind: "stroke",
+        d: "M90 44 C 84 22, 34 20, 33 48 C 32 74, 88 66, 88 100 C 88 134, 38 138, 28 110",
+        width: 31,
+      },
+    ],
     shine: ["M46 28 Q 58 24 72 28"],
     face: [60, 75],
     eyeGap: 20,
@@ -104,7 +113,12 @@ const RIGS: Record<LetterName, Rig> = {
   },
 };
 
-function shapes(body: Shape[], fill: string, dy = 0, extraWidth = 0): ReactNode {
+function shapes(
+  body: Shape[],
+  fill: string,
+  dy = 0,
+  extraWidth = 0,
+): ReactNode {
   return body.map((s, i) => {
     if (s.kind === "stroke") {
       return (
@@ -121,25 +135,60 @@ function shapes(body: Shape[], fill: string, dy = 0, extraWidth = 0): ReactNode 
       );
     }
     if (s.kind === "rect") {
-      return <rect key={i} x={s.x - extraWidth / 2} y={s.y + dy - extraWidth / 2} width={s.w + extraWidth} height={s.h + extraWidth} rx={(Math.min(s.w, s.h) + extraWidth) / 2} fill={fill} />;
+      return (
+        <rect
+          key={i}
+          x={s.x - extraWidth / 2}
+          y={s.y + dy - extraWidth / 2}
+          width={s.w + extraWidth}
+          height={s.h + extraWidth}
+          rx={(Math.min(s.w, s.h) + extraWidth) / 2}
+          fill={fill}
+        />
+      );
     }
-    return <circle key={i} cx={s.cx} cy={s.cy + dy} r={s.r + extraWidth / 2} fill={fill} />;
+    return (
+      <circle
+        key={i}
+        cx={s.cx}
+        cy={s.cy + dy}
+        r={s.r + extraWidth / 2}
+        fill={fill}
+      />
+    );
   });
 }
 
-export function LetterArt({ name, talking = false }: { name: LetterName; talking?: boolean }) {
+export function LetterArt({
+  name,
+  talking = false,
+}: {
+  name: LetterName;
+  talking?: boolean;
+}) {
   const rig = RIGS[name];
   const c = PALETTE[name];
   const [fx, fy] = rig.face;
   const g = rig.eyeGap / 2;
 
   return (
-    <svg className={`letter letter-${name}${talking ? " is-talking" : ""}`} viewBox="0 0 120 160" aria-hidden="true">
+    <svg
+      className={`letter letter-${name}${talking ? " is-talking" : ""}`}
+      viewBox="0 0 120 160"
+      aria-hidden="true"
+    >
       <ellipse cx="60" cy="152" rx="34" ry="5" fill="#1b2a4a" opacity="0.12" />
 
       {rig.legs.map((x) => (
         <g key={x}>
-          <rect x={x - 6} y={rig.legTop} width="12" height="18" rx="6" fill={c.shade} />
+          <rect
+            x={x - 6}
+            y={rig.legTop}
+            width="12"
+            height="18"
+            rx="6"
+            fill={c.shade}
+          />
           <ellipse cx={x} cy={147} rx="11.5" ry="7.5" fill={c.shade} />
         </g>
       ))}
@@ -148,25 +197,56 @@ export function LetterArt({ name, talking = false }: { name: LetterName; talking
         <g
           key={i}
           className={arm.wave ? "letter-arm is-waving" : "letter-arm"}
-          style={{ transformOrigin: `${arm.d.split(" ")[0].slice(1)}px ${arm.d.split(" ")[1]}px` }}
+          style={{
+            transformOrigin: `${arm.d.split(" ")[0].slice(1)}px ${arm.d.split(" ")[1]}px`,
+          }}
         >
-          <path d={arm.d} fill="none" stroke={c.limb} strokeWidth="8" strokeLinecap="round" />
+          <path
+            d={arm.d}
+            fill="none"
+            stroke={c.limb}
+            strokeWidth="8"
+            strokeLinecap="round"
+          />
           <circle cx={arm.hand[0]} cy={arm.hand[1]} r="7.5" fill={c.limb} />
         </g>
       ))}
 
       {shapes(rig.body, c.shade, 5)}
       {shapes(rig.body, c.base)}
-      <g stroke="#fff" strokeWidth="6" strokeLinecap="round" fill="none" opacity="0.45">
+      <g
+        stroke="#fff"
+        strokeWidth="6"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.45"
+      >
         {rig.shine.map((d) => (
           <path key={d} d={d} />
         ))}
       </g>
 
       <g className="letter-face">
-        <ellipse cx={fx - g - 3} cy={fy + 8} rx="6" ry="3.8" fill="#FF8FA3" opacity="0.6" />
-        <ellipse cx={fx + g + 3} cy={fy + 8} rx="6" ry="3.8" fill="#FF8FA3" opacity="0.6" />
-        <g className="letter-eyes" style={{ transformOrigin: `${fx}px ${fy}px` }}>
+        <ellipse
+          cx={fx - g - 3}
+          cy={fy + 8}
+          rx="6"
+          ry="3.8"
+          fill="#FF8FA3"
+          opacity="0.6"
+        />
+        <ellipse
+          cx={fx + g + 3}
+          cy={fy + 8}
+          rx="6"
+          ry="3.8"
+          fill="#FF8FA3"
+          opacity="0.6"
+        />
+        <g
+          className="letter-eyes"
+          style={{ transformOrigin: `${fx}px ${fy}px` }}
+        >
           {[-g, g].map((dx) => (
             <g key={dx}>
               <ellipse cx={fx + dx} cy={fy} rx="4.6" ry="6.2" fill="#1B1F2A" />
@@ -180,9 +260,18 @@ export function LetterArt({ name, talking = false }: { name: LetterName; talking
             <path d={`M${fx + g + 5} ${fy - 11} L${fx + g - 4} ${fy - 7.5}`} />
           </g>
         )}
-        <g className="letter-mouth" style={{ transformOrigin: `${fx}px ${fy + 7}px` }}>
-          <path d={`M${fx - 7} ${fy + 6} Q ${fx} ${fy + 7.5} ${fx + 7} ${fy + 6} Q ${fx + 6} ${fy + 16} ${fx} ${fy + 16} Q ${fx - 6} ${fy + 16} ${fx - 7} ${fy + 6} Z`} fill="#7A2230" />
-          <path d={`M${fx - 4} ${fy + 13.4} Q ${fx} ${fy + 10.4} ${fx + 4} ${fy + 13.4} Q ${fx} ${fy + 16.2} ${fx - 4} ${fy + 13.4} Z`} fill="#F0687A" />
+        <g
+          className="letter-mouth"
+          style={{ transformOrigin: `${fx}px ${fy + 7}px` }}
+        >
+          <path
+            d={`M${fx - 7} ${fy + 6} Q ${fx} ${fy + 7.5} ${fx + 7} ${fy + 6} Q ${fx + 6} ${fy + 16} ${fx} ${fy + 16} Q ${fx - 6} ${fy + 16} ${fx - 7} ${fy + 6} Z`}
+            fill="#7A2230"
+          />
+          <path
+            d={`M${fx - 4} ${fy + 13.4} Q ${fx} ${fy + 10.4} ${fx + 4} ${fy + 13.4} Q ${fx} ${fy + 16.2} ${fx - 4} ${fy + 13.4} Z`}
+            fill="#F0687A"
+          />
         </g>
       </g>
     </svg>

@@ -51,7 +51,10 @@ function Speed() {
             <span className="race-track">
               <span
                 className={`race-bar race-${r.tone}`}
-                style={{ left: `${(from / 5) * 100}%`, width: `${((r.value - from) / 5) * 100}%` }}
+                style={{
+                  left: `${(from / 5) * 100}%`,
+                  width: `${((r.value - from) / 5) * 100}%`,
+                }}
               />
             </span>
             <span className="race-value">{r.text}</span>
@@ -93,7 +96,13 @@ function Speakers() {
 function StagePhoto() {
   return (
     <figure className="stage-photo">
-      <img src="assets/event-2.webp" alt="행사 무대 옆 모니터에 영어 자막이 떠 있다. 얼굴은 흐리게 처리됐다." width="960" height="960" loading="lazy" />
+      <img
+        src="assets/event-2.webp"
+        alt="행사 무대 옆 모니터에 영어 자막이 떠 있다. 얼굴은 흐리게 처리됐다."
+        width="960"
+        height="960"
+        loading="lazy"
+      />
       <figcaption>{copy.stagePhoto}</figcaption>
     </figure>
   );

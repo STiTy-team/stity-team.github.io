@@ -24,7 +24,9 @@ const sameFrame = (a: Frame, b: Frame) =>
   a.peer2Words === b.peer2Words;
 
 export function PhoneScreen({ beat, landscape }: Props) {
-  const [frame, setFrame] = useState(() => frameAt(beat.get(), myWords.length, peerWords.length));
+  const [frame, setFrame] = useState(() =>
+    frameAt(beat.get(), myWords.length, peerWords.length),
+  );
 
   useMotionValueEvent(beat, "change", (b) => {
     const next = frameAt(b, myWords.length, peerWords.length);
@@ -115,12 +117,18 @@ function Chat({ frame }: { frame: Frame }) {
           </div>
         )}
         {frame.peer2 !== "hidden" && (
-          <div className={`bubble peer${frame.peer2 === "partial" ? " partial" : ""}`}>
+          <div
+            className={`bubble peer${frame.peer2 === "partial" ? " partial" : ""}`}
+          >
             <p>
               <i className="dot en" />
-              {frame.peer2 === "final" ? CONVERSATION.peer2.text : peerWords.slice(0, frame.peer2Words).join(" ")}
+              {frame.peer2 === "final"
+                ? CONVERSATION.peer2.text
+                : peerWords.slice(0, frame.peer2Words).join(" ")}
             </p>
-            {frame.peer2 === "final" && <p className="tr">{CONVERSATION.peer2.trans}</p>}
+            {frame.peer2 === "final" && (
+              <p className="tr">{CONVERSATION.peer2.trans}</p>
+            )}
           </div>
         )}
       </div>

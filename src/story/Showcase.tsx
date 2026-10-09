@@ -1,6 +1,11 @@
 import { lazy, Suspense, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useInView, useReducedMotion, useScroll, useTransform } from "motion/react";
+import {
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import { copy } from "../content";
 import { Hero } from "./Hero";
 import { PhoneScreen } from "./PhoneScreen";
@@ -36,14 +41,24 @@ export function Showcase() {
   const [webgl] = useState(hasWebGL);
   const [screenHost] = useState(() => document.createElement("div"));
 
-  const { scrollYProgress: heroProgress } = useScroll({ target: heroRef, offset: ["start 64px", "end 64px"] });
-  const { scrollYProgress: storyProgress } = useScroll({ target: story, offset: ["start 64px", "end end"] });
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start 64px", "end 64px"],
+  });
+  const { scrollYProgress: storyProgress } = useScroll({
+    target: story,
+    offset: ["start 64px", "end end"],
+  });
   const beat = useTransform(storyProgress, [0, 1], [1, BEATS - 1]);
 
   useLayoutEffect(() => {
     const measure = () => {
       if (heroSlot.current && stageSlot.current && stage.current) {
-        slots.current = measureSlots(heroSlot.current, stageSlot.current, stage.current);
+        slots.current = measureSlots(
+          heroSlot.current,
+          stageSlot.current,
+          stage.current,
+        );
       }
     };
     measure();
@@ -59,9 +74,19 @@ export function Showcase() {
         <div className="showcase-track" aria-hidden="true">
           <div className="showcase-canvas">
             <Suspense fallback={null}>
-              <Phone3D beat={beat} hero={heroProgress} slots={slots} reduced={reduced} active={active} screen={screenHost} />
+              <Phone3D
+                beat={beat}
+                hero={heroProgress}
+                slots={slots}
+                reduced={reduced}
+                active={active}
+                screen={screenHost}
+              />
             </Suspense>
-            {createPortal(<PhoneScreen beat={beat} landscape={!reduced} />, screenHost)}
+            {createPortal(
+              <PhoneScreen beat={beat} landscape={!reduced} />,
+              screenHost,
+            )}
           </div>
         </div>
       )}

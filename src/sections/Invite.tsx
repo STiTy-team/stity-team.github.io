@@ -7,7 +7,17 @@ import type { LetterName } from "../ui/LetterArt";
 
 const CREW: LetterName[] = ["s", "t1", "i", "t2", "y"];
 
-function CrewMember({ name, index, wave, active }: { name: LetterName; index: number; wave: number; active: boolean }) {
+function CrewMember({
+  name,
+  index,
+  wave,
+  active,
+}: {
+  name: LetterName;
+  index: number;
+  wave: number;
+  active: boolean;
+}) {
   const [hop, setHop] = useState(0);
   const [delay, setDelay] = useState(0);
 
@@ -46,7 +56,13 @@ function Crew() {
   return (
     <div className="invite-crew" ref={ref}>
       {CREW.map((name, i) => (
-        <CrewMember key={name} name={name} index={i} wave={wave} active={inView} />
+        <CrewMember
+          key={name}
+          name={name}
+          index={i}
+          wave={wave}
+          active={inView}
+        />
       ))}
     </div>
   );
@@ -59,7 +75,11 @@ export function Invite() {
         <div>
           <h2 id="inv-title">{copy.invite.title}</h2>
           <p>{copy.invite.lead}</p>
-          <Actions primary="demo" secondary={["contact", "github"]} tone="blue" />
+          <Actions
+            primary="demo"
+            secondary={["contact", "github"]}
+            tone="blue"
+          />
         </div>
         <Crew />
       </div>
@@ -71,7 +91,13 @@ export function Footer() {
   return (
     <footer className="foot">
       <div className="wrap foot-row">
-        <img src="assets/logo.webp" alt="STiTy" width="72" height="24" loading="lazy" />
+        <img
+          src="assets/logo.webp"
+          alt="STiTy"
+          width="72"
+          height="24"
+          loading="lazy"
+        />
         <p>{copy.foot}</p>
         {LINKS.github && <a href={LINKS.github}>GitHub</a>}
       </div>

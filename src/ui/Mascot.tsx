@@ -16,8 +16,18 @@ type Props = {
 };
 
 const breathe = (phase: number) => ({
-  scaleY: { duration: 3.2, repeat: Infinity, ease: "easeInOut" as const, delay: phase },
-  scaleX: { duration: 3.2, repeat: Infinity, ease: "easeInOut" as const, delay: phase },
+  scaleY: {
+    duration: 3.2,
+    repeat: Infinity,
+    ease: "easeInOut" as const,
+    delay: phase,
+  },
+  scaleX: {
+    duration: 3.2,
+    repeat: Infinity,
+    ease: "easeInOut" as const,
+    delay: phase,
+  },
   default: { duration: 0.3, ease: "easeOut" as const },
 });
 
@@ -70,7 +80,16 @@ function variants(lean: number, phase: number, hopDelay: number): Variants {
   };
 }
 
-export function Mascot({ name, state = "idle", hop = 0, lean = 1, phase = 0, hopDelay = 0, className, onHover }: Props) {
+export function Mascot({
+  name,
+  state = "idle",
+  hop = 0,
+  lean = 1,
+  phase = 0,
+  hopDelay = 0,
+  className,
+  onHover,
+}: Props) {
   const reduced = useReducedMotion();
   const [hopping, setHopping] = useState(false);
   const lastHop = useRef(hop);
@@ -87,11 +106,17 @@ export function Mascot({ name, state = "idle", hop = 0, lean = 1, phase = 0, hop
     <motion.div
       aria-hidden="true"
       className={`mascot${current === "still" ? " is-still" : ""}${className ? ` ${className}` : ""}`}
-      style={{ originY: 1, ["--blink-delay" as string]: `${phase * 1.7}s`, ["--wave-delay" as string]: `${phase}s` }}
+      style={{
+        originY: 1,
+        ["--blink-delay" as string]: `${phase * 1.7}s`,
+        ["--wave-delay" as string]: `${phase}s`,
+      }}
       variants={variants(lean, phase, hopDelay)}
       initial={false}
       animate={current}
-      onAnimationComplete={(definition) => definition === "hop" && setHopping(false)}
+      onAnimationComplete={(definition) =>
+        definition === "hop" && setHopping(false)
+      }
       onHoverStart={onHover}
     >
       <LetterArt name={name} talking={current === "talk"} />
