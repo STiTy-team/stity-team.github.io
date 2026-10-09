@@ -6,7 +6,7 @@ export const LINKS: Record<"demo" | "github" | "contact", string | null> = {
 
 export const copy = {
   skip: "본문으로 건너뛰기",
-  nav: { why: "연구 배경", how: "작동 방식", events: "현장" },
+  nav: { why: "연구 배경", how: "작동 방식", events: "현장", docs: "개발 문서" },
   cta: {
     demo: "라이브 데모 열기",
     code: "GitHub에서 코드 보기",

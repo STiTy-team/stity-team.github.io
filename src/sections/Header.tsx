@@ -11,6 +11,7 @@ export function Header() {
           <a href="#why">{copy.nav.why}</a>
           <a href="#how">{copy.nav.how}</a>
           <a href="#events">{copy.nav.events}</a>
+          <a href="docs/">{copy.nav.docs}</a>
         </nav>
       </div>
     </header>
